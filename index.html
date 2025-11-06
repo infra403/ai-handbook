@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent 实战手册 - 企业级智能体开发完整指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #24292e;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .intro {
+            background: #f6f8fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border-left: 4px solid #667eea;
+        }
+
+        .intro h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .chapters {
+            margin-bottom: 40px;
+        }
+
+        .chapters h2 {
+            color: #24292e;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e1e4e8;
+        }
+
+        .chapter-list {
+            list-style: none;
+        }
+
+        .chapter-item {
+            background: #f6f8fa;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            border-left: 4px solid #667eea;
+        }
+
+        .chapter-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .chapter-link {
+            display: block;
+            padding: 20px;
+            color: #24292e;
+            text-decoration: none;
+        }
+
+        .chapter-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .chapter-title {
+            font-weight: 600;
+            font-size: 1.1em;
+            color: #0366d6;
+        }
+
+        .chapter-desc {
+            color: #586069;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+
+        .tech-stack {
+            background: #f6f8fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .tech-stack h2 {
+            margin-bottom: 20px;
+        }
+
+        .tech-stack ul {
+            list-style: none;
+        }
+
+        .tech-stack li {
+            padding: 8px 0;
+            color: #586069;
+        }
+
+        .tech-stack strong {
+            color: #24292e;
+            margin-right: 10px;
+        }
+
+        .license {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .license h2 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .license-text {
+            color: #856404;
+            line-height: 1.8;
+        }
+
+        .license-example {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid #ffc107;
+        }
+
+        footer {
+            background: #24292e;
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .chapter-number {
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 AI Agent 实战手册</h1>
+            <p>企业级智能体开发完整指南 - 从理论到实践的系统性课程</p>
+            <div class="badge">
+                <img src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" alt="License">
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="intro">
+                <h2>📚 课程简介</h2>
+                <p>本课程深入探讨企业级AI Agent的设计与实现,核心聚焦于<strong>代理性(Agenticness)</strong>与<strong>可控性(Controllability)</strong>之间的平衡。通过理论讲解和实战项目,帮助开发者构建可靠、可控的智能体系统。</p>
+            </div>
+
+            <div class="chapters">
+                <h2>📖 课程目录</h2>
+                <ul class="chapter-list">
+                    <li class="chapter-item">
+                        <a href="./Course_Content/Chapter_01-Controllability_vs_Agenticness.md" class="chapter-link">
+                            <span class="chapter-number">01</span>
+                            <div style="display: inline-block; vertical-align: top;">
+                                <div class="chapter-title">可控性 vs. 代理性</div>
+                                <div class="chapter-desc">企业级Agent的核心矛盾</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="./Course_Content/Chapter_02-Setup_and_Hello_Agent.md" class="chapter-link">
+                            <span class="chapter-number">02</span>
+                            <div style="display: inline-block; vertical-align: top;">
+                                <div class="chapter-title">环境搭建与Hello Agent</div>
+                                <div class="chapter-desc">开发环境配置与第一个Agent</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="./Course_Content/Chapter_03-Governance_and_Control.md" class="chapter-link">
+                            <span class="chapter-number">03</span>
+                            <div style="display: inline-block; vertical-align: top;">
+                                <div class="chapter-title">治理与控制</div>
+                                <div class="chapter-desc">Agent行为约束与权限管理</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="./Course_Content/Chapter_04-Memory_and_Time.md" class="chapter-link">
+                            <span class="chapter-number">04</span>
+                            <div style="display: inline-block; vertical-align: top;">
+                                <div class="chapter-title">记忆与时间</div>
+                                <div class="chapter-desc">短期与长期记忆设计</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="./Course_Content/Chapter_05-Context_Engineering.md" class="chapter-link">
+                            <span class="chapter-number">05</span>
+                            <div style="display: inline-block; vertical-align: top;">
+                                <div class="chapter-title">上下文工程</div>
+                                <div class="chapter-desc">Prompt工程与上下文优化</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="./Course_Content/Chapter_06-Autonomous_Action_Layer.md" class="chapter-link">
+                            <span class="chapter-number">06</span>
+                            <div style="display: inline-block; vertical-align: top;">
+                                <div class="chapter-title">自主行动层</div>
+                                <div class="chapter-desc">工具调用与行动规划</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="./Course_Content/Chapter_07-Orchestration_and_Collaboration.md" class="chapter-link">
+                            <span class="chapter-number">07</span>
+                            <div style="display: inline-block; vertical-align: top;">
+                                <div class="chapter-title">编排与协作</div>
+                                <div class="chapter-desc">多Agent协同模式</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="./Course_Content/Chapter_08-Middleware_and_Routing.md" class="chapter-link">
+                            <span class="chapter-number">08</span>
+                            <div style="display: inline-block; vertical-align: top;">
+                                <div class="chapter-title">中间件与路由</div>
+                                <div class="chapter-desc">智能路由与中间件架构</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="./Course_Content/Chapter_09-AgentOps.md" class="chapter-link">
+                            <span class="chapter-number">09</span>
+                            <div style="display: inline-block; vertical-align: top;">
+                                <div class="chapter-title">AgentOps</div>
+                                <div class="chapter-desc">监控、日志与运维实践</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="./Course_Content/Chapter_10-SkillCraft_Framework_Design.md" class="chapter-link">
+                            <span class="chapter-number">10</span>
+                            <div style="display: inline-block; vertical-align: top;">
+                                <div class="chapter-title">SkillCraft框架设计</div>
+                                <div class="chapter-desc">技能抽象与框架设计</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="./Course_Content/Chapter_11-Orchestrator_Agent.md" class="chapter-link">
+                            <span class="chapter-number">11</span>
+                            <div style="display: inline-block; vertical-align: top;">
+                                <div class="chapter-title">编排器Agent</div>
+                                <div class="chapter-desc">任务协调与资源调度</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="./Course_Content/Chapter_12-Codebase_SkillKit.md" class="chapter-link">
+                            <span class="chapter-number">12</span>
+                            <div style="display: inline-block; vertical-align: top;">
+                                <div class="chapter-title">代码库SkillKit</div>
+                                <div class="chapter-desc">代码理解与生成能力</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="./Course_Content/Chapter_13-The_Complete_AI_Code_Assistant.md" class="chapter-link">
+                            <span class="chapter-number">13</span>
+                            <div style="display: inline-block; vertical-align: top;">
+                                <div class="chapter-title">完整的AI代码助手</div>
+                                <div class="chapter-desc">端到端项目实现</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tech-stack">
+                <h2>🛠️ 技术栈</h2>
+                <ul>
+                    <li><strong>语言:</strong> Python 3.11+</li>
+                    <li><strong>核心框架:</strong> LangChain, CrewAI, AutoGen</li>
+                    <li><strong>LLM:</strong> OpenAI GPT-4, Claude, 其他兼容模型</li>
+                    <li><strong>开发环境:</strong> Docker, VSCode Dev Containers</li>
+                </ul>
+            </div>
+
+            <div class="license">
+                <h2>⚖️ 许可证与转载须知</h2>
+                <div class="license-text">
+                    <p><strong>本项目采用 CC BY-NC-SA 4.0 协议</strong></p>
+                    <p>如果您希望分享或使用本项目的内容,必须遵守以下规则:</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li><strong>署名(Attribution)</strong> - 必须注明原作者和出处</li>
+                        <li><strong>非商业性使用(NonCommercial)</strong> - 不得用于商业目的</li>
+                        <li><strong>相同方式共享(ShareAlike)</strong> - 基于本作品的演绎必须采用相同协议</li>
+                    </ul>
+                    <div class="license-example">
+本内容来源于 AI Handbook (https://github.com/infra403/ai-handbook)
+许可协议: CC BY-NC-SA 4.0
+                    </div>
+                    <p style="margin-top: 15px;"><strong>⚠️ 未经授权的商业使用将被视为侵权行为。</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p style="margin-bottom: 20px;">⭐ 如果这个项目对你有帮助,欢迎给个Star!</p>
+            <a href="https://github.com/infra403/ai-handbook" class="btn">GitHub仓库</a>
+            <a href="https://github.com/infra403/ai-handbook/issues" class="btn btn-secondary">提交问题</a>
+            <p style="margin-top: 30px; opacity: 0.7; font-size: 0.9em;">持续更新中... | CC BY-NC-SA 4.0</p>
+        </footer>
+    </div>
+</body>
+</html>
